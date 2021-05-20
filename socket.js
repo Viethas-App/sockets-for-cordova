@@ -64,14 +64,14 @@ Socket.prototype.open = function (host, port, success, error) {
         switch (payload.type) {
             case "Close":
                 _that._state = Socket.State.CLOSED;
-                _that.onClose(payload.hasError);
                 window.document.removeEventListener(SOCKET_EVENT, socketEventHandler);
+                _that.onClose = payload.hasError;
                 break;
             case "DataReceived":
-                _that.onData(new Uint8Array(payload.data));
+                _that.onData = new Uint8Array(payload.data);
                 break;
             case "Error":
-                _that.onError(payload);
+                _that.onError = payload;
                 break;
             default:
                 console.error("SocketsForCordova: Unknown event type " + payload.type + ", socket key: " + payload.socketKey);
