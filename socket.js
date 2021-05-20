@@ -64,8 +64,8 @@ Socket.prototype.open = function (host, port, success, error) {
         switch (payload.type) {
             case "Close":
                 _that._state = Socket.State.CLOSED;
-                window.document.removeEventListener(SOCKET_EVENT, socketEventHandler);
                 _that.onClose(payload.hasError);
+                window.document.removeEventListener(SOCKET_EVENT, socketEventHandler);
                 break;
             case "DataReceived":
                 _that.onData(new Uint8Array(payload.data));
